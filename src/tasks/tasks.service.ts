@@ -30,4 +30,14 @@ export class TasksService {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
   }
+
+  async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    const task = await this.getTaskById(id);
+
+    task.status = status;
+
+    await this.tasksRepository.save(task);
+
+    return task;
+  }
 }
